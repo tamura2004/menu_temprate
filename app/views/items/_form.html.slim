@@ -1,0 +1,6 @@
+= simple_form_for @item, :html => { :class => "form-horizontal" } do |f|
+  = f.association :pc
+  = f.association :item_master
+  = f.button :submit, :class => 'btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), menus_path, :class => 'btn btn-default'

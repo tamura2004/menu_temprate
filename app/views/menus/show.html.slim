@@ -1,0 +1,7 @@
+ul
+  - @menu.children.each do |menu|
+      li
+        = link_to menu.name, menu_path(menu.id)
+  - if @menu.parent
+    li
+      = link_to @menu.parent.name, menu_path(@menu.parent.id)
