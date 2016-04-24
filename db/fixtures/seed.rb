@@ -15,16 +15,20 @@ require "yaml"
 
 menu = YAML.load (<<MENU)
 ---
-field:
-  town: &town
-    shop:
-      buy: new_item
-    training:
-      list: pcs
-      make: new_pc
-  first_town: *town
-  second_town: *town
-  third_town: *town
+world:
+  field:
+    town: &town
+      shop:
+        buy: new_item
+      training:
+        list: pcs
+        make: new_pc
+    first_town: *town
+    second_town: *town
+    third_town: *town
+  battle:
+    attack: battle_attack
+    escape: battle_escape
 MENU
 
 class MenuFactory
@@ -71,7 +75,6 @@ ItemMaster.seed do |s|
   s.name = "dagger"
   s.gp = 20
 end
-
 ItemMaster.seed do |s|
   s.id = 1
   s.name = "potion"

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'battle/attack'
+
+  get 'battle/escape'
+
   resources :menus
   resources :items
   resources :pcs

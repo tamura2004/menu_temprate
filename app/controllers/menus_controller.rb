@@ -8,10 +8,15 @@ class MenusController < ApplicationController
   end
 
   def show
-    if @menu.path
-      redirect_to eval(@menu.path+"_url")
+    if rand(10) < 3
+      flash[:alert] = "enemy attack you!"
+      redirect_to menu_url(Menu.find_by(name: "battle"))
     else
-      session[:menu_id] = @menu.id
+      if @menu.path
+        redirect_to eval(@menu.path+"_url")
+      elsif @menu.name !~ /battle/i
+        session[:menu_id] = @menu.id
+      end
     end
   end
 
