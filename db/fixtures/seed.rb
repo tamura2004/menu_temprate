@@ -13,62 +13,41 @@
 
 require "yaml"
 
-menu = YAML.load (<<MENU)
+Menu.delete_all
+
+menus = YAML.load (<<MENU)
 ---
-world:
-  field:
-    town: &town
-      shop:
-        buy: new_item
-      training:
-        list: pcs
-        make: new_pc
-    first_town: *town
-    second_town: *town
-    third_town: *town
-  battle:
-    attack: battle_attack
-    escape: battle_escape
+- wall:
+- wall:
+- town: inn
+- field:
+- dungeon: dungeon_level_1
+- wall:
+- wall:
+- inn:
+- shop:
+- temple:
+- dungeon_level_1:
+- dungeon_level_2:
+- dungeon_level_3:
+- wall:
+- wall:
 MENU
 
-class MenuFactory
-  attr_accessor :menus
+@id = -1
+def id
+  @id += 1
+end
 
-  def initialize
-    @id = 0
-    # @menus = []
-  end
-
-  def create(hash,parent)
-    hash.each do |entry,children|
-      @id += 1
-
-      case children
-      when Hash
-        # @menus << [@id, parent, entry, nil]
-        Menu.seed do |s|
-          s.id = @id
-          s.name = entry
-          s.menu_id = parent
-          s.path = nil
-        end
-        create(children,@id)
-
-      when String
-        Menu.seed do |s|
-          s.id = @id
-          s.name = entry
-          s.menu_id = parent
-          s.path = children
-        end
-        # @menus << [@id, parent, entry, v]
-      end
+menus.each do |menu|
+  menu.each do |k,v|
+    Menu.seed do |s|
+      s.id = id
+      s.name = k
+      s.path = v
     end
   end
 end
-
-f = MenuFactory.new
-f.create(menu,nil)
 
 ItemMaster.seed do |s|
   s.id = 0

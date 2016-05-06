@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424092429) do
+ActiveRecord::Schema.define(version: 20160427122819) do
 
   create_table "item_masters", force: :cascade do |t|
     t.string   "name"
@@ -30,6 +30,12 @@ ActiveRecord::Schema.define(version: 20160424092429) do
   add_index "items", ["item_master_id"], name: "index_items_on_item_master_id"
   add_index "items", ["pc_id"], name: "index_items_on_pc_id"
 
+  create_table "master_races", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "menus", force: :cascade do |t|
     t.string   "name"
     t.string   "path"
@@ -43,6 +49,24 @@ ActiveRecord::Schema.define(version: 20160424092429) do
   create_table "pcs", force: :cascade do |t|
     t.string   "name"
     t.integer  "gp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "races", force: :cascade do |t|
+    t.integer  "pc_id"
+    t.integer  "master_race_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "races", ["master_race_id"], name: "index_races_on_master_race_id"
+  add_index "races", ["pc_id"], name: "index_races_on_pc_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "age"
+    t.string   "addr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

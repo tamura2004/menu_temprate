@@ -12,9 +12,18 @@ class PcsController < ApplicationController
   def show
   end
 
-  # GET /pcs/new
+  # GET /pcs/new name gp
   def new
+    
     @pc = Pc.new
+
+    %w(name gp).each do |attr|
+      next if @pc[attr]
+      @attr = attr
+      @collection = 3.times.map{|i|"#{attr}#{i}"}
+      return
+    end
+    @attr = nil
   end
 
   # GET /pcs/1/edit
